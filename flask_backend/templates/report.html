@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-container">
+  <h2>Report an Environmental Issue</h2>
+  <p class="subtitle">Submit problem details. Google Gemini AI will assess environmental risks immediately.</p>
+  
+  <form action="/report" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="title">Problem Title *</label>
+      <input type="text" id="title" name="title" required placeholder="e.g. Garbage dumped near primary school">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="category">Category *</label>
+        <select id="category" name="category">
+          <option value="Waste Management">Waste Management</option>
+          <option value="Plastic Waste">Plastic Waste</option>
+          <option value="Water Pollution">Water Pollution</option>
+          <option value="Air Pollution">Air Pollution</option>
+          <option value="Sewage Problems">Sewage Problems</option>
+          <option value="Illegal Dumping">Illegal Dumping</option>
+          <option value="Tree/Environmental Damage">Tree/Environmental Damage</option>
+          <option value="Blocked Drains">Blocked Drains</option>
+          <option value="Excessive Littering">Excessive Littering</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location / Landmark *</label>
+        <input type="text" id="location" name="location" required placeholder="e.g. Near ABC School, Chennai">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Problem Description *</label>
+      <textarea id="description" name="description" rows="4" required placeholder="Describe what you observed, waste volume, odor, or safety risks..."></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="image">Optional Image Upload</label>
+        <input type="file" id="image" name="image" accept="image/*">
+      </div>
+      <div class="form-group">
+        <label for="reporter_name">Reporter Name (Optional)</label>
+        <input type="text" id="reporter_name" name="reporter_name" placeholder="Leave blank for Anonymous">
+      </div>
+    </div>
+
+    <button type="submit" class="btn-primary full-width">Submit & Analyze Report</button>
+  </form>
+</div>
+{% endblock %}

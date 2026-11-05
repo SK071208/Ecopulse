@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="detail-container">
+  <div class="detail-header">
+    <span class="badge category">{{ report.category }}</span>
+    <span class="badge severity-{{ report.severity | lower }}">{{ report.severity }}</span>
+    <h1>{{ report.title }}</h1>
+    <p class="meta">📍 {{ report.location }} | Reported by {{ report.reporter_name or 'Anonymous' }} on {{ report.created_at[:10] }}</p>
+  </div>
+
+  <div class="timeline">
+    <h3>Status Progress</h3>
+    <div class="timeline-steps">
+      <div class="step active">Reported</div>
+      <div class="step {% if report.status in ['AI Analyzed', 'Under Review', 'In Progress', 'Resolved'] %}active{% endif %}">AI Analyzed</div>
+      <div class="step {% if report.status in ['Under Review', 'In Progress', 'Resolved'] %}active{% endif %}">Under Review</div>
+      <div class="step {% if report.status in ['In Progress', 'Resolved'] %}active{% endif %}">In Progress</div>
+      <div class="step {% if report.status == 'Resolved' %}active{% endif %}">Resolved</div>
+    </div>
+  </div>
+
+  <div class="section observation">
+    <h3>Citizen Observation</h3>
+    <p>{{ report.description }}</p>
+    {% if report.image_path %}
+    <img src="{{ report.image_path }}" alt="Report photo" class="detail-img">
+    {% endif %}
+  </div>
+
+  <div class="section ai-box">
+    <h3>🤖 Google Gemini AI Assessment</h3>
+    <p><strong>AI Summary:</strong> {{ report.ai_summary }}</p>
+    <p><strong>Potential Environmental Impact:</strong> {{ report.environmental_impact }}</p>
+    <p><strong>Recommended Action:</strong> {{ report.recommended_action }}</p>
+  </div>
+
+  <div class="section history">
+    <h3>Status History</h3>
+    <ul>
+      {% for item in history %}
+      <li><strong>{{ item.status }}</strong> ({{ item.timestamp[:16] }}): {{ item.notes }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="actions">
+    <a href="/issues" class="btn-secondary">&larr; Back to Issues</a>
+  </div>
+</div>
+{% endblock %}

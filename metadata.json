@@ -1,0 +1,6 @@
+{
+  "name": "EcoTrack",
+  "description": "Environmental issue reporting and tracking platform with AI-powered assessment and community monitoring.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

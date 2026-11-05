@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="issues-header">
+  <h2>Reported Environmental Problems</h2>
+  <a href="/report" class="btn-primary">Report Issue</a>
+</div>
+
+<form method="GET" action="/issues" class="filter-bar">
+  <input type="text" name="search" placeholder="Search by title, location..." value="{{ request.args.get('search', '') }}">
+  <select name="category">
+    <option value="All">All Categories</option>
+    <option value="Waste Management">Waste Management</option>
+    <option value="Plastic Waste">Plastic Waste</option>
+    <option value="Water Pollution">Water Pollution</option>
+    <option value="Air Pollution">Air Pollution</option>
+    <option value="Blocked Drains">Blocked Drains</option>
+  </select>
+  <button type="submit" class="btn-secondary">Filter</button>
+</form>
+
+<div class="cards-grid">
+  {% for report in reports %}
+  <div class="card">
+    <div class="card-header">
+      <span class="badge category">{{ report.category }}</span>
+      <span class="badge severity-{{ report.severity | lower }}">{{ report.severity }}</span>
+    </div>
+    <h3><a href="/issues/{{ report.id }}">{{ report.title }}</a></h3>
+    <p class="summary">{{ report.ai_summary or report.description }}</p>
+    <div class="card-footer">
+      <span>📍 {{ report.location }}</span>
+      <span class="status-pill">{{ report.status }}</span>
+    </div>
+  </div>
+  {% else %}
+  <p class="empty-state">No environmental issues reported yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

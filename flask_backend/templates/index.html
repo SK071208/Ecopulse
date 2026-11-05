@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h1>Report Environmental Problems.<br><span class="highlight">Help Create a Cleaner Community.</span></h1>
+  <p>EcoTrack connects citizens with environmental authorities. Report garbage dumping, water pollution, or illegal emissions. Google Gemini AI automatically evaluates severity and recommends municipal actions.</p>
+  <div class="hero-actions">
+    <a href="/report" class="btn-primary">Report an Issue</a>
+    <a href="/issues" class="btn-secondary">View Issues</a>
+  </div>
+</section>
+
+<section class="recent-section">
+  <h2>Recent Reports</h2>
+  <div class="cards-grid">
+    {% for report in reports %}
+    <div class="card">
+      <span class="badge category">{{ report.category }}</span>
+      <span class="badge severity-{{ report.severity | lower }}">{{ report.severity }}</span>
+      <h3><a href="/issues/{{ report.id }}">{{ report.title }}</a></h3>
+      <p class="summary">{{ report.ai_summary or report.description }}</p>
+      <div class="card-footer">
+        <span>📍 {{ report.location }}</span>
+        <span class="status-pill">{{ report.status }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
